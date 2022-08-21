@@ -1,0 +1,83 @@
+<!doctype html>
+<html lang="en">
+	<head>
+		<meta charset="utf-8">
+		<base href="/">
+		<meta http-equiv="X-UA-Compatible" content="IE=edge">
+		<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=0">
+
+		<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/normalize/8.0.1/normalize.min.css">
+		<link rel="stylesheet" href="./src/assets/styles/app.css">
+
+		<link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+
+		<script src="https://unpkg.com/vue@3"></script>
+		<script src="https://unpkg.com/vue-router@4"></script>
+		<script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+
+		<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/3.9.1/chart.min.js"></script>
+		<script src="https://cdn.jsdelivr.net/npm/chartjs-plugin-datalabels"></script>
+
+	</head>
+	<body>
+		<header class="site-header">
+		  <a href="/" class="site-logo" title="To the frontpage"><span class="emoji">🦄</span>Enhjørning.bot<span class="beta">beta</span></a>
+		  
+		  <nav class="header-nav">
+		  	<a href="https://twitter.com/enhjorningbot" title="Stay up to date on Twitter" target="_blank" class="follow-the-unicorn">
+		  		<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"><path d="M12 0c-6.627 0-12 5.373-12 12s5.373 12 12 12 12-5.373 12-12-5.373-12-12-12zm6.066 9.645c.183 4.04-2.83 8.544-8.164 8.544-1.622 0-3.131-.476-4.402-1.291 1.524.18 3.045-.244 4.252-1.189-1.256-.023-2.317-.854-2.684-1.995.451.086.895.061 1.298-.049-1.381-.278-2.335-1.522-2.304-2.853.388.215.83.344 1.301.359-1.279-.855-1.641-2.544-.889-3.835 1.416 1.738 3.533 2.881 5.92 3.001-.419-1.796.944-3.527 2.799-3.527.825 0 1.572.349 2.096.907.654-.128 1.27-.368 1.824-.697-.215.671-.67 1.233-1.263 1.589.581-.07 1.135-.224 1.649-.453-.384.578-.87 1.084-1.433 1.489z"></path></svg>
+		  	</a>
+            <a href="https://www.linkedin.com/company/52129046" title="Stay up to date on LinkeIn" target="_blank" class="follow-the-unicorn">
+            	<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"><path d="M12 0c-6.627 0-12 5.373-12 12s5.373 12 12 12 12-5.373 12-12-5.373-12-12-12zm-2 16h-2v-6h2v6zm-1-6.891c-.607 0-1.1-.496-1.1-1.109 0-.612.492-1.109 1.1-1.109s1.1.497 1.1 1.109c0 .613-.493 1.109-1.1 1.109zm8 6.891h-1.998v-2.861c0-1.881-2.002-1.722-2.002 0v2.861h-2v-6h2v1.093c.872-1.616 4-1.736 4 1.548v3.359z"></path></svg>
+            </a>
+		  </nav>
+		</header>
+		<div class="disclaimer js-disclaimer">
+	        <div class="container">
+	            <h2>Welcome to Enhjorning.bot!</h2>
+	            <p>The information here is automatically generated based on a combination data from the Danish Business Authority's API and data from Virk.dk.</p>
+	            <p>This is something we hacked together in our spare time, so yeah... use at you own peril and remember always to check out the underlying data and draw your own conclusions.</p>
+	        </div>
+	        <button class="btn--hide-disclaimer js-hide-disclaimer">×</button>
+	    </div>
+	    <div id="app">
+	    	<router-view></router-view>
+		</div>
+
+		<footer class="site-footer">
+		    <p>Made by <a href="https://twitter.com/oaktoade" title="Follow @oaktoade  on Twitter" target="_blank">@oaktoade</a> &amp; <a href="https://twitter.com/farvig" title="Follow @favig  on Twitter" target="_blank">@ƒarvig</a></p>
+		</footer>
+
+		<script type="module">
+			
+			import Feed from "./src/components/feed.js";
+			import Company from "./src/components/company.js";
+			import ChartValuation from "./src/components/chartValuation.js";
+			
+			const routes = [
+			  { path: '/', component: Feed },
+			  { path: '/company/:cvr', component: Company },
+			]
+
+
+			const router = VueRouter.createRouter({
+			  history: VueRouter.createWebHashHistory(),
+			  routes
+			})
+
+			const app = Vue.createApp({
+				components: {
+					'feed': Feed,
+					'company': Company
+				}
+			})
+
+			app.use(router)
+
+			app.mount('#app')
+		</script>
+		
+		<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+		<script src="/assets/js/app.js"></script>
+	</body>
+</html>
