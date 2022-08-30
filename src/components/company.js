@@ -27,7 +27,7 @@ export default{
 		              
 		              <ul>
 		                <li>
-		                    <span class="label">Direction:</span>
+		                    <span class="label">CEOs:</span>
 		                    <span>
 		                      <span v-for="ceoMember in companyData.ceo">
 		                        {{ ceoMember.role }}: {{ ceoMember.name }} <br />
@@ -94,6 +94,7 @@ export default{
 				this.companyData = response.data
 				this.loaded= true
 				this.chartValuationData()
+				this.chartInvestmentData()
 			})
 
 	},
@@ -104,60 +105,50 @@ export default{
 	      		valuation: ''
 	      	};
 
+			let counter = 0;
 			this.companyData.increases.forEach( (increase) => {
-				if( increase.virkParity ){
-					if( increase.virkIncrease.length == 1 ){
-						var valuation = increase.virkIncrease[0].valuation;
-					}else{
-						var valuation = Math.max(...increase.virkIncrease.map(o => o.valuation));
-					}
+				if (counter == 0){
 					this.chartDataValuation.push(
 						{
 							'x': increase.validFrom, // Named x for x-axis value for chartJS
-							'y': valuation 			 // Named y for y-axis value for chartJS
+							'y': increase.capital 			 // Named y for y-axis value for chartJS
+
+						}
+					)
+				}else{
+					this.chartDataValuation.push(
+						{
+							'x': increase.validFrom, // Named x for x-axis value for chartJS
+							'y': increase.valuation 			 // Named y for y-axis value for chartJS
 
 						}
 					);
-					
 					this.ChartDataIvestmentsLabels.push(increase.validFrom);
 				}
+				counter +=1;
 			})
-
-			var virkIncreaseArraay = [];
-
+		},
+		
+		chartInvestmentData(){
+			let counter = 0;
 			this.companyData.increases.forEach( (increase) => {
-				if( increase.virkParity ){
-					virkIncreaseArraay.push( increase.virkIncrease );
+				if (counter == 0){
+					this.chartDataInvestments.push( 						{
+						'x': increase.validFrom, // Named x for x-axis value for chartJS
+						'y': increase.capital 			 // Named y for y-axis value for chartJS
+
+					} );
+				}else{
+				this.chartDataInvestments.push( 						{
+					'x': increase.validFrom, // Named x for x-axis value for chartJS
+					'y': increase.investment // Named y for y-axis value for chartJS
+
+				});
 				}
+			counter +=1;
 			})
-
-			/*
-			const distinctTypes = Array.from( new Set(increase.virkIncrease.map(o => o.typeIncrease)));	
-
-			
-			const dataPerType = distinctTypes.map( d => increase.virkIncrease.filter( o => o.investment == d ));
-
-
-
-			const numberOfDatasets = Math.max.apply(null, distinctTypes.map( data => increase.virkIncrease.length));
-
-
-			for (let i = 0; i < numberOfDatasets; i++) {
-				console.log(i);
-			  this.chartDataInvestments.push({
-			    data: dataPerType.map(data => i < increase.virkIncrease.length ? increase.virkIncrease[i].off : 0),
-			    ranges: dataPerType.map(data => i < increase.virkIncrease.length ? increase.virkIncrease[i].range : ''),
-			    backgroundColor: distinctTypes.map(d => 
-			      "rgba(" + Math.floor(Math.random() * 255) + "," + Math.floor(Math.random() * 255) + "," + Math.floor(Math.random() * 255) + ", 0.5)"),
-			    categoryPercentage: 1,
-			    barPercentage: 1
-			  }); 
-			}
-			*/
-			console.log(virkIncreaseArraay);
-			
-
 			this.chartReady = true;
 		}
+	
 	}
 }
