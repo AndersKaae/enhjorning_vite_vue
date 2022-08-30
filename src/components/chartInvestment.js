@@ -40,6 +40,11 @@ export default {
 		            y: {
 		            	stacked: true,
 		                beginAtZero: true,
+						ticks: {
+                    // Include a dollar sign in the ticks
+                    callback: function(value, index, ticks) {
+                        return 'DKK ' + value;
+                    }}
 		            },
 		        }
 		    }

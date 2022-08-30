@@ -27,7 +27,12 @@ export default {
 			    },
 		        scales: {
 		            y: {
-		                beginAtZero: true
+		                beginAtZero: true,
+						ticks: {
+							// Include a dollar sign in the ticks
+							callback: function(value, index, ticks) {
+								return 'DKK ' + value;
+							}}
 		            }
 		        },
 		    }

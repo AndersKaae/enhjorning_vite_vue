@@ -115,7 +115,7 @@ export default{
 
 						}
 					)
-				}else{
+				}else if (increase.type == "increased" ){
 					this.chartDataValuation.push(
 						{
 							'x': increase.validFrom, // Named x for x-axis value for chartJS
@@ -138,7 +138,7 @@ export default{
 						'y': increase.capital 			 // Named y for y-axis value for chartJS
 
 					} );
-				}else{
+				}else if (increase.type == "increased" ){
 				this.chartDataInvestments.push( 						{
 					'x': increase.validFrom, // Named x for x-axis value for chartJS
 					'y': increase.investment // Named y for y-axis value for chartJS
