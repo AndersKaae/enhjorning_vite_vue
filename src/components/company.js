@@ -13,6 +13,10 @@ export default{
 		                    <span class="label">CVR-no:</span>
 		                    <span><a :href="'https://datacvr.virk.dk/enhed/virksomhed/' +  companyData.cvr" target="_blank" title="Besøg på virk.dk">{{ companyData.cvr }}</a></span>
 		                </li>
+						<li class="company-founded">
+							<span class="label">Founded:</span>
+							<span></span>
+						</li>
 		                <li class="company-area">
 		                    <span class="label">Industry:</span>
 		                    <span>{{ companyData.businessCode }}</span>
@@ -62,15 +66,17 @@ export default{
 		    </ul>
 		    </div>
 		    
-		    <div class="company-boardmembers">
-		      <h2>Boardmembers</h2>
-		      <ul>
-		        <li v-for="boardMember in companyData.board">
-		          <span>{{ boardMember.name }}</span>
-		          <span v-if="boardMember.role != 'BESTYRELSESMEDLEM'"> ({{ boardMember.role }})</span>
-		        </li>
-		      </ul>
-		    </div>
+		    <span v-if="boardMembers.length > 0">
+				<div class="company-boardmembers">
+				<h2>Boardmembers</h2>
+				<ul>
+					<li v-for="boardMember in boardMembers">
+					<span>{{ boardMember.name }}</span>
+					<span v-if="boardMember.role != 'BESTYRELSESMEDLEM'"> ({{ boardMember.role }})</span>
+					</li>
+				</ul>
+				</div>
+			</span>
 		  </section>
 	`,
 	components: {
@@ -84,7 +90,9 @@ export default{
 	      	chartDataValuation: [],
 	      	chartDataInvestments: [],
 	      	chartReady: false,
-	      	ChartDataIvestmentsLabels: []
+	      	ChartDataIvestmentsLabels: [],
+			boardMembers: [],
+			ceoMembers: []
 	    }
   	},
 	mounted() {
@@ -95,6 +103,8 @@ export default{
 				this.loaded= true
 				this.chartValuationData()
 				this.chartInvestmentData()
+				this.activeBoardMembers()
+				this.activeCeoMembers()
 			})
 
 	},
@@ -112,7 +122,6 @@ export default{
 						{
 							'x': increase.validFrom, // Named x for x-axis value for chartJS
 							'y': increase.capital 			 // Named y for y-axis value for chartJS
-
 						}
 					)
 				}else if (increase.type == "increased" ){
@@ -120,7 +129,6 @@ export default{
 						{
 							'x': increase.validFrom, // Named x for x-axis value for chartJS
 							'y': increase.valuation 			 // Named y for y-axis value for chartJS
-
 						}
 					);
 					this.ChartDataIvestmentsLabels.push(increase.validFrom);
@@ -128,7 +136,6 @@ export default{
 				counter +=1;
 			})
 		},
-		
 		chartInvestmentData(){
 			let counter = 0;
 			this.companyData.increases.forEach( (increase) => {
@@ -148,6 +155,20 @@ export default{
 			counter +=1;
 			})
 			this.chartReady = true;
+		},
+		activeBoardMembers(){
+			this.companyData.board.forEach( (member) => {
+				if (member.validTo == 'None'){
+					this.boardMembers.push(member)
+				}
+			});
+		},
+		activeCeoMembers(){
+			this.companyData.ceo.forEach( (member) => {
+				if (member.validTo == 'None'){
+					this.ceoMembers.push(member)
+				}
+			});
 		}
 	
 	}
