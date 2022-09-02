@@ -40,7 +40,7 @@ export default{
   	},
 	mounted() {
 	    axios
-	      .get('http://enhjorning.ddns.net:8000/api/v1/enhjorning/feed?page=1&filtered=true')
+	      .get('https://enhjorningbotapi-production.up.railway.app/api/v1/enhjorning/feed?page=1&filtered=true')
 	      .then((response) => {
 	      	this.feed = response.data
 	      	this.loaded = true
