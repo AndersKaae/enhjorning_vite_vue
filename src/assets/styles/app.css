@@ -208,269 +208,6 @@ a{
   font-size: 0.75em;
 }
 
-.info-container {
-  background-color: #fff;
-  box-shadow: 0 0 15px 5px rgba(0, 0, 0, 0.1);
-  display: flex;
-  justify-content: space-between;
-  margin-bottom: 1.25rem;
-}
-.info-container .list-box {
-  border-left: 2px solid #e2e2e2;
-  padding: 1.25rem 0;
-  width: 40%;
-}
-.info-container .list-box .timline {
-  list-style: none;
-  margin: 0;
-  padding: 0;
-}
-.info-container .list-box .timline > li {
-  display: flex;
-  justify-content: space-between;
-  font-size: 16px;
-  padding: 5px 1.25rem 5px 2.5rem;
-  position: relative;
-}
-.info-container .list-box .timline > li > span:first-child {
-  width: 44%;
-}
-.info-container .list-box .timline > li > span:last-child {
-  text-align: right;
-  width: 56%;
-}
-.info-container .list-box .timline > li .investment-child--single__type {
-  color: #888;
-  display: block;
-  font-size: 90%;
-}
-.info-container .list-box .timline > li.valuation-child--multiple {
-  flex-wrap: wrap;
-}
-.info-container .list-box .timline > li.valuation-child--multiple .valuation-child--multiple__header {
-  display: flex;
-  justify-content: space-between;
-  width: 100%;
-}
-.info-container .list-box .timline > li.valuation-child--multiple .valuation_children {
-  font-size: 90%;
-  list-style: none;
-  text-align: right;
-  width: 100%;
-}
-.info-container .list-box .timline > li::before {
-  background-color: #ccc;
-  border-radius: 50%;
-  content: "";
-  display: inline-block;
-  height: 16px;
-  position: absolute;
-  top: 11px;
-  left: 0.625rem;
-  width: 16px;
-}
-.info-container .list-box .timline > li:not(:last-child)::after {
-  background-color: #ccc;
-  content: " ";
-  height: 100%;
-  position: absolute;
-  top: 16px;
-  left: 17px;
-  width: 5px;
-}
-.info-container .list-box.list-box--right {
-  border-left: 0;
-  border-right: 2px solid #e2e2e2;
-}
-.info-container .list-box.list-box--valuation .timline-first::before {
-  display: none;
-}
-.info-container .list-box.list-box--valuation .timline-first > span:first-child::before {
-  content: "👶";
-  display: inline-block;
-  position: absolute;
-  left: 0.625rem;
-}
-.info-container .list-box.list-box--investments .timline-first::before {
-  display: none;
-}
-.info-container .list-box.list-box--investments .timline-first > span:first-child::before {
-  content: "👶";
-  display: inline-block;
-  position: absolute;
-  left: 0.625rem;
-}
-.info-container .list-box.list-box--investments .investment-child--multiple {
-  flex-wrap: wrap;
-}
-.info-container .list-box.list-box--investments .investment-child--multiple .investment-child--multiple__header {
-  display: flex;
-  justify-content: space-between;
-  width: 100%;
-}
-.info-container .list-box.list-box--investments .investment-child--multiple .investment_children {
-  color: #888;
-  font-size: 90%;
-  list-style: none;
-  margin: 0;
-  padding: 0;
-  width: 100%;
-}
-.info-container .list-box.list-box--investments .investment-child--multiple .investment_children .investment-child {
-  display: flex;
-  justify-content: space-between;
-}
-.info-container .list-box.list-box--investments .investment-child--multiple .investment_children .investment-child:last-child {
-  text-align: right;
-}
-.info-container .chart-box {
-  padding-bottom: 3.125rem;
-  padding-top: 1.25rem;
-  width: 60%;
-}
-.info-container .chart-box.chart-box--full-width {
-  width: 100%;
-}
-.info-container .chart-box__title {
-  padding-left: 1.25rem;
-}
-.info-container .chart--area {
-  padding: 1.25rem;
-}
-.info-container .chart-box--investments .chart--area {
-  padding-top: 0;
-}
-.info-container .chart-box--investments .chart-legend {
-  font-size: 0.75em;
-  margin-bottom: 64px;
-}
-.info-container .chart-box--investments .chart-legend ul {
-  padding-left: 0;
-}
-.info-container .chart-box--investments .chart-legend li {
-  display: inline-block;
-  list-style: none;
-  margin-right: 0.625rem;
-}
-.info-container .chart-box--investments .chart-legend li:before {
-  content: "";
-  display: inline-block;
-  height: 12px;
-  margin-right: 3px;
-  width: 12px;
-}
-.info-container .chart-box--investments .chart-legend .chart-legend--kontant:before {
-  background-color: #CFE6C3;
-}
-.info-container .chart-box--investments .chart-legend .chart-legend--fusion:before {
-  background-color: #94CFC6;
-}
-.info-container .chart-box--investments .chart-legend .chart-legend--spaltning:before {
-  background-color: #5EB8CB;
-}
-.info-container .chart-box--investments .chart-legend .chart-legend--indskudafbestemmendekapitalpost:before {
-  background-color: #3B9DC4;
-}
-.info-container .chart-box--investments .chart-legend .chart-legend--indskudafbestendevirksomhed:before {
-  background-color: #2D66A0;
-}
-.info-container .chart-box--investments .chart-legend .chart-legend--indbetaltivrdier:before {
-  background-color: #94CFC6;
-}
-.info-container .chart-box--investments .chart-legend .chart-legend--konverteringafgld:before {
-  background-color: #E9BCB8;
-}
-.info-container .chart-box--investments .chart-legend .chart-legend--overfrtereserveroverskud:before {
-  background-color: #E9D279;
-}
-.info-container .chart {
-  align-items: flex-end;
-  background: repeating-linear-gradient(0deg, #e2e2e2, #e2e2e2 1px, transparent 1px, transparent 50px);
-  border-bottom: 1px solid #888;
-  border-left: 1px solid #888;
-  border-top: 1px solid #e2e2e2;
-  display: flex;
-  flex-wrap: nowrap;
-  height: 250px;
-  padding-right: 1.25rem;
-  justify-content: space-between;
-}
-.info-container .bar {
-  background-color: #ccc;
-  flex-grow: 1;
-  margin: 0 4px;
-  position: relative;
-}
-.info-container .bar.has-children {
-  background-color: transparent;
-}
-.info-container .bar:after {
-  border-left: 1px solid #333;
-  bottom: -5px;
-  content: "";
-  display: block;
-  height: 10px;
-  left: 50%;
-  position: absolute;
-  width: 0;
-}
-.info-container .bar.bar--birth {
-  background-color: #CFE6C3;
-}
-.info-container .sub-bars {
-  align-items: flex-end;
-  display: flex;
-  flex-wrap: wrap;
-  height: 100%;
-}
-.info-container .sub-bars .bar {
-  margin: 0;
-  width: 100%;
-}
-.info-container .sub-bars .bar__number {
-  top: 0;
-}
-.info-container .increasetype--kontant {
-  background-color: #CFE6C3;
-}
-.info-container .increasetype--fusion {
-  background-color: #94CFC6;
-}
-.info-container .increasetype--spaltning {
-  background-color: #5EB8CB;
-}
-.info-container .increasetype--indskudafbestemmendekapitalpost {
-  background-color: #3B9DC4;
-}
-.info-container .increasetype--indskudafbestendevirksomhed {
-  background-color: #2D66A0;
-}
-.info-container .increasetype--indbetaltivrdier {
-  background-color: #94CFC6;
-}
-.info-container .increasetype--konverteringafgld {
-  background-color: #E9BCB8;
-}
-.info-container .increasetype--overfrtereserveroverskud {
-  background-color: #E9D279;
-}
-.info-container .bar__number {
-  font-size: 12px;
-  font-weight: bold;
-  left: 20%;
-  position: absolute;
-  top: -40px;
-  transform: rotate(-45deg);
-  z-index: 1;
-}
-.info-container .bar__date {
-  font-size: 12px;
-  left: 50%;
-  position: absolute;
-  bottom: -40px;
-  transform: rotate(45deg);
-  z-index: 1;
-}
 
 .company-people {
   display: flex;
@@ -608,7 +345,9 @@ a{
     position: relative;
 }
 
-
+.container--graph{
+  margin-bottom: 2rem;
+}
 
 /* FEED */
 
@@ -758,3 +497,37 @@ a{
     width: 100%;
 }
 
+
+.search-wrappper{
+  position: relative;
+  width: 50%;
+}
+
+.search-input{
+  padding: .75em;
+  width: 100%;
+}
+
+.search-results{
+  background: #fff;
+  border: 1px solid #ddd;
+  position: absolute;
+  width: 100%;
+  z-index: 10;
+}
+
+.search-results__spinner{
+  padding: .5em 1em;
+}
+
+.search-result{
+  border-bottom: 1px solid #ddd;
+  display: block;
+  padding: .5em 1em;
+  text-align: left;
+  text-decoration: none;
+}
+
+.search-result:hover{
+  background-color: #feecff;
+}

@@ -15,13 +15,13 @@ export default{
 		                </li>
 						<li class="company-founded">
 							<span class="label">Founded:</span>
-							<span></span>
+							<span>{{ founded }}</span>
 						</li>
 		                <li class="company-area">
 		                    <span class="label">Industry:</span>
 		                    <span>{{ companyData.businessCode }}</span>
 		                </li>
-		                <li class="company-website">
+		                <li class="company-website" v-if="companyData.website">
 		                    <span class="label">Website:</span>
 		                    <span>
 		                      <a :href="'https://' + companyData.website" title="See more on virk.dk" target="_blank" class="company-website">{{ companyData.website}}</a>
@@ -31,7 +31,7 @@ export default{
 		              
 		              <ul>
 		                <li>
-		                    <span class="label">CEOs:</span>
+		                    <span class="label">C-suite:</span>
 		                    <span>
 		                      <span v-for="ceoMember in companyData.ceo">
 		                        {{ ceoMember.role }}: {{ ceoMember.name }} <br />
@@ -43,11 +43,11 @@ export default{
 		      </div>
 		  </header>
 		  
-		  <section class="container" v-if="chartReady">
+		  <section class="container container--graph" v-if="chartReady">
 		    <chart-valuation :chartDataValuation="chartDataValuation"></chart-valuation>
 		  </section>
 
-		   <section class="container" v-if="chartReady">
+		   <section class="container container--graph" v-if="chartReady">
 		    <chart-investment 
 		    	:chartDataInvestments="chartDataInvestments"
 		    	:companyData="companyData"
@@ -57,26 +57,24 @@ export default{
 		  
 		  <section class="container company-people">
 		    <div class="company-owners">
-		    <h2>Owners</h2>
-		    <ul class="current-owners">
-		      <li v-for="ownerMember in companyData.owner" class="current-owner">
-		        <span>{{ ownerMember.name }}</span>
-		        <span class="company-owner__share">{{ ownerMember.values[0].ownerPercentage*100 }}%</span>
-		      </li>
-		    </ul>
+		    	<h2>Owners</h2>
+			    <ul class="current-owners">
+			      <li v-for="ownerMember in companyData.owner" class="current-owner">
+			        <span>{{ ownerMember.name }}</span>
+			        <span class="company-owner__share">{{ ownerMember.values[ownerMember.values.length - 1].ownerPercentage*100 }}%</span>
+			      </li>
+			    </ul>
 		    </div>
 		    
-		    <span v-if="boardMembers.length > 0">
-				<div class="company-boardmembers">
+			<div class="company-boardmembers" v-if="boardMembers.length > 0">
 				<h2>Boardmembers</h2>
 				<ul>
 					<li v-for="boardMember in boardMembers">
-					<span>{{ boardMember.name }}</span>
-					<span v-if="boardMember.role != 'BESTYRELSESMEDLEM'"> ({{ boardMember.role }})</span>
+						<span>{{ boardMember.name }}</span>
+						<span v-if="boardMember.role != 'BESTYRELSESMEDLEM'"> ({{ boardMember.role }})</span>
 					</li>
 				</ul>
-				</div>
-			</span>
+			</div>
 		  </section>
 	`,
 	components: {
@@ -92,7 +90,8 @@ export default{
 	      	chartReady: false,
 	      	ChartDataIvestmentsLabels: [],
 			boardMembers: [],
-			ceoMembers: []
+			ceoMembers: [],
+			founded: ''
 	    }
   	},
 	mounted() {
@@ -105,10 +104,15 @@ export default{
 				this.chartInvestmentData()
 				this.activeBoardMembers()
 				this.activeCeoMembers()
-			})
-
+				this.companyFoundedDate()
+			});
 	},
 	methods:{
+
+		companyFoundedDate() {
+			this.founded = this.companyData.increases[0].validFrom;
+		},
+
 		chartValuationData(){
 			const Entry = {
 	      		data: '',
