@@ -96,7 +96,7 @@ export default{
   	},
 	mounted() {
 	    axios
-			.get('http://enhjorning.ddns.net:8000/api/v1/enhjorning/company?cvr='+this.$route.params.cvr)
+			.get('https://enhjorningbotapi-production.up.railway.app/api/v1/enhjorning/company?cvr='+this.$route.params.cvr)
 			.then((response) => {
 				this.companyData = response.data
 				this.loaded= true
