@@ -110,7 +110,7 @@
 					    }
 					    this.timer = setTimeout(() => {
 					        axios
-								.get('http://enhjorning.ddns.net:8000/api/v1/enhjorning/search?query='+this.searchInput)
+								.get('https://enhjorningbotapi-production.up.railway.app/api/v1/enhjorning/search?query='+this.searchInput)
 								.then((response) => {
 									this.searchResults = response.data
 									console.log(this.searchResults);
