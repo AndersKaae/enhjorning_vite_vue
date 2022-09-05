@@ -6,6 +6,10 @@
 		<meta http-equiv="X-UA-Compatible" content="IE=edge">
 		<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=0">
 
+		<title>EnhjørningBot - Investments in Danish Start Ups</title>
+		<meta name="description" content="Follow what&#039;s happening on the Danish Start Up scene" />
+
+
 		<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/normalize/8.0.1/normalize.min.css">
 		<link rel="stylesheet" href="./src/assets/styles/app.css">
 
@@ -63,7 +67,7 @@
 		        <button class="btn--hide-disclaimer js-hide-disclaimer">×</button>
 		    </div>
 		    
-		    <router-view></router-view>
+		    <router-view :key="$route.fullPath"></router-view>
 
 			<footer class="site-footer">
 			    <p>Made by <a href="https://twitter.com/oaktoade" title="Follow @oaktoade  on Twitter" target="_blank">@oaktoade</a> &amp; <a href="https://twitter.com/farvig" title="Follow @favig  on Twitter" target="_blank">@ƒarvig</a></p>
