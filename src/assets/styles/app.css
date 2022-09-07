@@ -531,3 +531,46 @@ a{
 .search-result:hover{
   background-color: #feecff;
 }
+
+@media (max-width: 640px) { 
+  .site-header{
+    flex-direction: column
+  }
+
+  .site-logo{
+    margin-bottom: 1rem;
+  }
+
+  .search-wrappper{
+    margin-bottom: 1rem;
+    width: 90%;
+  }
+
+  .investments .investment__content{
+    flex-direction: column;
+  }
+
+  .investments .investment__investment,
+  .investments .investment__ownership,
+  .investments .investment__valuation{
+    text-align: left;
+    width: 100%;
+  }
+
+  .company-meta{
+    flex-direction: column;
+  }
+  .company-meta ul{
+    width: 100%;
+  }
+
+  .company-people{
+    flex-direction: column;
+  }
+
+  .company-people .company-owners,
+  .company-people .company-boardmembers{
+    width: 100%;
+  }
+
+}
