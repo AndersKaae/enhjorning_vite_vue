@@ -34,7 +34,9 @@ export default{
 		                    <span class="label">C-suite:</span>
 		                    <span>
 		                      <span v-for="ceoMember in companyData.ceo">
-		                        {{ ceoMember.role }}: {{ ceoMember.name }} <br />
+							  	<span v-if="ceoMember.validTo == 'None'">
+		                        	{{ ceoMember.role }}: {{ ceoMember.name }} <br />
+								</span>
 		                      </span>
 		                    </span>
 		                </li>
@@ -59,10 +61,14 @@ export default{
 		    <div class="company-owners">
 		    	<h2>Owners</h2>
 			    <ul class="current-owners">
-			      <li v-for="ownerMember in companyData.owner" class="current-owner">
-			        <span>{{ ownerMember.name }}</span>
-			        <span class="company-owner__share">{{ ownerMember.values[ownerMember.values.length - 1].ownerPercentage*100 }}%</span>
-			      </li>
+			      <span v-for="ownerMember in companyData.owner">
+				  	<span v-if="ownerMember.values[ownerMember.values.length - 1].validTo == 'None'">
+			        	<li class="current-owner">
+						<span>{{ ownerMember.name }}</span>
+			        	<span class="company-owner__share">{{ ownerMember.values[ownerMember.values.length - 1].ownerPercentage*100 }}%</span>
+						</li>
+					<span>
+			      </span>
 			    </ul>
 		    </div>
 		    
