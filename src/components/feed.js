@@ -40,7 +40,7 @@ export default{
   	},
 	mounted() {
 	    axios
-	      .get('https://enhjorningbotapi-production.up.railway.app/api/v1/enhjorning/feed?page=1&filtered=true')
+	      .get('https://enhjorningbotapi-production.up.railway.app/api/v1/enhjorning/feed?page=1&filtered=true', {auth: {username: 'enhjorningbot@gmail.com',password: 'bf7f8df76a4443f2ae6de295f5fd3340'}})
 	      .then((response) => {
 	      	this.feed = response.data
 	      	this.loaded = true

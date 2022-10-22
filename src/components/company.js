@@ -102,7 +102,7 @@ export default{
   	},
 	mounted() {
 	    axios
-			.get('https://enhjorningbotapi-production.up.railway.app/api/v1/enhjorning/company?cvr='+this.$route.params.cvr)
+			.get('https://enhjorningbotapi-production.up.railway.app/api/v1/enhjorning/company?cvr='+this.$route.params.cvr, {auth: {username: 'enhjorningbot@gmail.com',password: 'bf7f8df76a4443f2ae6de295f5fd3340'}})
 			.then((response) => {
 				this.companyData = response.data
 				this.loaded= true

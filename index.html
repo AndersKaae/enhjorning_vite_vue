@@ -114,7 +114,7 @@
 					    }
 					    this.timer = setTimeout(() => {
 					        axios
-								.get('https://enhjorningbotapi-production.up.railway.app/api/v1/enhjorning/search?query='+this.searchInput)
+								.get('https://enhjorningbotapi-production.up.railway.app/api/v1/enhjorning/search?query='+this.searchInput, {auth: {username: 'enhjorningbot@gmail.com',password: 'bf7f8df76a4443f2ae6de295f5fd3340'}})
 								.then((response) => {
 									this.searchResults = response.data
 									console.log(this.searchResults);
