@@ -9,23 +9,10 @@ export default {
 	]
 	,
 	mounted(){
-
 		const ctx = document.getElementById('chart-investment').getContext('2d');
 		const myChart = new Chart(ctx, {
 		    type: 'bar',
-		    data: {
-				datasets: [{
-					label: 'Investments',
-					data: this.chartDataInvestments,
-					backgroundColor: [
-					  'rgba(255, 99, 132, 0.2)',
-					],
-					borderColor: [
-					  'rgb(255, 99, 132)',
-					],
-					borderWidth: 3
-				}]
-		    },
+		    data: this.chartDataInvestments,
 		    options: {
 		    	plugins: {
 				  datalabels: {

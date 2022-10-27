@@ -67,7 +67,7 @@ export default{
 						<span>{{ ownerMember.name }}</span>
 			        	<span class="company-owner__share">{{ ownerMember.values[ownerMember.values.length - 1].ownerPercentage*100 }}%</span>
 						</li>
-					<span>
+					</span>
 			      </span>
 			    </ul>
 		    </div>
@@ -92,7 +92,8 @@ export default{
 	      	companyData: [],
 	      	loaded: false,
 	      	chartDataValuation: [],
-	      	chartDataInvestments: [],
+	      	chartDataInvestments: {},
+			typeOfIncrease: {},
 	      	chartReady: false,
 	      	ChartDataIvestmentsLabels: [],
 			boardMembers: [],
@@ -148,22 +149,94 @@ export default{
 		},
 		chartInvestmentData(){
 			let counter = 0;
+			let defaultBorder = 2;
+			this.chartDataInvestments = {
+				labels: [],
+				datasets: [{
+					label: 'Kontant',
+					apiName: 'Kontant',
+					data: this.initializeList(),
+					borderWidth: defaultBorder
+				  },
+				  {
+					label: 'Fusion',
+					apiName: 'Fusion',
+					data: this.initializeList(),
+					borderWidth: defaultBorder
+				  },
+				  {
+					label: 'Spaltning',
+					apiName: 'Spaltning',
+					data: this.initializeList(),
+					borderWidth: defaultBorder
+				  },
+				  {
+					label: 'Indskud af bestemmende kapitalpost',
+					apiName: 'Indskud af bestemmende kapitalpost',
+					data: this.initializeList(),
+					borderWidth: defaultBorder
+				  },
+				  {
+					label: 'Indskud af bestående virksomhed',
+					apiName: 'Indskud af bestående virksomhed',
+					data: this.initializeList(),
+					borderWidth: defaultBorder
+				  },
+				  {
+					label: 'Indbetalt i værdier',
+					apiName: 'Indbetalt i værdier',
+					data: this.initializeList(),
+					borderWidth: defaultBorder
+				  },
+				  {
+					label: 'Konvertering af gæld',
+					apiName: 'Konvertering af gæld',
+					data: this.initializeList(),
+					borderWidth: defaultBorder
+				  },
+				  {
+					label: 'Overførte reserver / overskud',
+					apiName: 'Overførte reserver / overskud',
+					data: this.initializeList(),
+					borderWidth: defaultBorder
+				  },
+				  {
+					label: 'Ved fonds',
+					apiName: 'Ved fonds',
+					data: this.initializeList(),
+					borderWidth: defaultBorder
+				  },
+				  {
+					label: 'ombytning af konvertible obligationer',
+					apiName: 'ombytning af konvertible obligationer',
+					data: this.initializeList(),
+					borderWidth: defaultBorder
+				  },
+				  {
+					label: 'Kapitanedsættelse',
+					apiName: 'Kapitanedsættelse (formentlig blandling)',
+					data: this.initializeList(),
+					borderWidth: defaultBorder
+				  }
+				]
+			  }
+			this.typeOfIncrease = this.GetTypeOfIncrease();
 			this.companyData.increases.forEach( (increase) => {
 				if (counter == 0){
-					this.chartDataInvestments.push( 						{
-						'x': increase.validFrom, // Named x for x-axis value for chartJS
-						'y': increase.capital 			 // Named y for y-axis value for chartJS
-
-					} );
+					this.chartDataInvestments.labels.push(increase.validFrom)
+					this.chartDataInvestments.datasets[0].data[counter] = increase.capital;
 				}else if (increase.type == "increased" ){
-				this.chartDataInvestments.push( 						{
-					'x': increase.validFrom, // Named x for x-axis value for chartJS
-					'y': increase.investment // Named y for y-axis value for chartJS
-
-				});
+					this.chartDataInvestments.labels.push(increase.validFrom)
+					increase.virkIncrease.forEach( (subIncrease) => {
+					// Finding which place in the datasets to add the subincrease
+					let placeInDataset = this.typeOfIncrease[subIncrease.typeIncrease]
+					this.chartDataInvestments.datasets[placeInDataset].data[counter] += subIncrease.investment
+					})
 				}
 			counter +=1;
 			})
+			this.RemoveUnsedTypes()
+			this.SetColors()
 			this.chartReady = true;
 		},
 		activeBoardMembers(){
@@ -179,6 +252,70 @@ export default{
 					this.ceoMembers.push(member)
 				}
 			});
+		},
+		initializeList(){
+			let list = [];
+			for(var i = 0; i < this.companyData.increases.length; i++){
+				list.push(0);
+			}
+			return list
+		},
+			GetTypeOfIncrease(){
+				let TypeObject = {}
+				let counter = 0;
+				this.chartDataInvestments.datasets.forEach( (dataset) => {
+					let tmpKeyname = dataset.apiName;
+					TypeObject[tmpKeyname] = counter;
+					counter++;
+				})
+				return TypeObject
+		},
+		RemoveUnsedTypes(){
+			let itemsToBeRemoved = [];
+			for (var i = this.chartDataInvestments.datasets.length - 1; i >= 0; i--) {
+				let total = 0
+				for (var n = 0; n <this.chartDataInvestments.datasets[i].data.length; n++) {
+					total += this.chartDataInvestments.datasets[i].data[n];
+				  }
+				if (total == 0){
+					itemsToBeRemoved.push(i)
+				}
+			}
+			for(var i = 0; i < itemsToBeRemoved.length; i++) {	
+				this.chartDataInvestments.datasets.splice(itemsToBeRemoved[i], 1)
+			}
+		},
+		SetColors(){
+			let colorScheme = [
+				{
+					"backgroundColor": 'rgba(255, 99, 132, 0.2)',
+					"borderColor": 'rgba(255, 99, 132, 1)'
+				},
+				{
+					"backgroundColor": 'rgba(54, 162, 235, 0.2)',
+					"borderColor": 'rgba(54, 162, 235, 1)'
+				},
+				{
+					"backgroundColor": 'rgba(255, 206, 86, 0.2)',
+					"borderColor": 'rgba(255, 206, 86, 1)'
+				},
+				{
+					"backgroundColor": 'rgba(75, 192, 192, 0.2)',
+					"borderColor": 'rgba(75, 192, 192, 1)'
+				},
+				{
+					"backgroundColor": 'rgba(153, 102, 255, 0.2)',
+					"borderColor": 'rgba(153, 102, 255, 1)'
+				},,
+				{
+					"backgroundColor": 'rgba(255, 159, 64, 0.2)',
+					"borderColor": 'rgba(255, 159, 64, 1)'
+				},
+			]
+			for (var n = 0; n <this.chartDataInvestments.datasets.length; n++) {
+				this.chartDataInvestments.datasets[n].backgroundColor = colorScheme[n].backgroundColor
+				this.chartDataInvestments.datasets[n].borderColor = colorScheme[n].borderColor
+			  }
 		}
 	
 	}
